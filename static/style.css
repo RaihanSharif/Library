@@ -46,7 +46,6 @@ body {
 
 .container {
   flex: 1;
-  background: linear-gradient(180deg, #a7dbe3, var(--theme-color-2));
   display: flex;
   flex-direction: column;
 }
@@ -115,7 +114,7 @@ button img {
   padding: 1.5rem;
   max-width: 90%;
   place-self: center;
-  background-color: var(--theme-color-1);
+
 
 }
 .card {
@@ -130,6 +129,8 @@ button img {
     "buttons buttons";
   gap: 0.5rem;
   grid-template-rows: auto auto 1fr auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
 }
 
 .card .title {
