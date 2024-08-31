@@ -1,50 +1,113 @@
-html {
-    font-family: sans-serif;
-    background-color:darkgrey
-  }
-  
-  table {
-    border-collapse: collapse;
-    border: 2px solid rgb(200,200,200);
-    letter-spacing: 1px;
-    font-size: 0.8rem;
-  }
-  
-  td, th {
-    border: 1px solid rgb(190,190,190);
-    padding: 10px 20px;
-  }
-  
-  th {
-    background-color: rgb(235,235,235);
-  }
-  
-  td {
-    text-align: center;
-  }
-  
-  tr:nth-child(even) td {
-    background-color: rgb(250,250,250);
-  }
-  
-  tr:nth-child(odd) td {
-    background-color: rgb(245,245,245);
-  }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&family=Great+Vibes&display=swap');
+:root {
 
-  /* Sets text alignment of the first element of set of TDs */
-  td:nth-child(1) {
-    text-align: left;
-  }
+  /* Use tailwind color palette */
+  --theme-color-1: #eef2ff;
+  --theme-color-2: #e0e7ff;
+  --theme-color-3: #c7d2fe;
+  --theme-color-4: #a5b4fc;
+  --theme-color-5: #818cf8;
+  --theme-color-6: #6366f1;
+  --theme-color-7: #4f46e5;
+  --theme-color-8: #4338ca;
+  --theme-color-9: #3730a3;
+  --theme-color-10: #312e81;
+  --theme-color-11: #1e1b4b;
 
   
-  caption {
-    padding: 10px;
-  }
 
-  .batman {
-    background-color: #d7d9f2;
-  }
-  
-  .flash {
-    background-color: #ffe8d4;
-  }
+  --gap-sm: 0.5rem;
+  --gap-mid: 1rem;
+  --gap-lg: 1.5rem;
+  --shadow: rgba(0, 0, 0, 0.426) 0px 1px 5px;
+
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  background-color: var(--theme-color-2);
+  font-family: "Roboto", sans-serif;
+  word-wrap: break-word;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gap-lg);
+  /* background-color: var(--theme-color-1); */
+  box-shadow: var(--shadow);
+  background: linear-gradient(210deg, #579aa5, var(--theme-color-10));
+  color: white;
+}
+
+
+#logo {
+  font-size: 3rem;
+  font-family: "Great Vibes", cursive;
+}
+
+button {
+  font-weight: 500;
+  padding: var(--gap-mid);
+  border-radius: 5px;
+  background-color: var(--theme-color-7);
+  color: white;
+  border: 0;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(90%);
+}
+
+button:active {
+  filter: brightness(80%);
+}
+
+button img {
+  filter: invert(100%);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin: 1rem 0;
+
+}
+
+.nav>* {
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+  min-width: 3rem;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme-color-11);
+  color: white;
+  padding: 1rem;
+}
