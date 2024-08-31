@@ -128,16 +128,14 @@ button img {
     "author pages"
     "description description"
     "buttons buttons";
-
-  align-items: center;
-  justify-items: start;
-  align-content: space-between;
   gap: 0.5rem;
+  grid-template-rows: auto auto 1fr auto;
 }
 
 .card .title {
   font-weight: bold;
   grid-area: title;
+  grid-row: auto;
 }
 
 .card .author {
