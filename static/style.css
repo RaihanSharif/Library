@@ -46,6 +46,9 @@ body {
 
 .container {
   flex: 1;
+  background: linear-gradient(180deg, #a7dbe3, var(--theme-color-2));
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -53,7 +56,6 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: var(--gap-lg);
-  /* background-color: var(--theme-color-1); */
   box-shadow: var(--shadow);
   background: linear-gradient(210deg, #579aa5, var(--theme-color-10));
   color: white;
@@ -102,6 +104,66 @@ button img {
   padding: 0;
   min-width: 3rem;
 }
+
+
+#card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: max-content;
+  gap: 1.5rem;
+  align-content: baseline;
+  padding: 1.5rem;
+  max-width: 90%;
+  place-self: center;
+  background-color: var(--theme-color-1);
+
+}
+.card {
+  background-color:var(--theme-color-4);
+  font-family: 'Goudy Bookletter 1911', serif;
+  padding: 1rem;
+  display: grid;
+  grid-template-areas: 
+    "title title"
+    "author pages"
+    "description description"
+    "buttons buttons";
+
+  align-items: center;
+  justify-items: start;
+  align-content: space-between;
+  gap: 0.5rem;
+}
+
+.card .title {
+  font-weight: bold;
+  grid-area: title;
+}
+
+.card .author {
+  grid-area: author;
+}
+
+.card .pages {
+  grid-area: pages;
+}
+.card .description {
+  font-weight: 100;
+  grid-area: description;
+}
+
+.card .card-buttons {
+  grid-area: buttons;
+  display: flex;
+  gap: 1rem;
+}
+
+/* card button styles 
+edit, delete, completed
+
+completed color should change based on true/false
+*/
+
 
 footer {
   display: flex;
