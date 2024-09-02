@@ -176,21 +176,22 @@ footer {
   padding: 1rem;
 }
 
-dialog {
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+dialog[open] {
+  margin: auto;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-
 label {
   display: flex;
   flex-direction: column;
+  gap: 0.3rem;
 }

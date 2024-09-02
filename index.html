@@ -26,37 +26,40 @@
                 </li>
             </ul>
             <button id="add-book-btn">
-                <img src="assets/plus.svg" alt="add book icon">
+                <img src="assets/plus.svg" alt="add new book">
             </button>
         </div>
         <div id="card-container">
 
         </div>
     </div>
-    <dialog open>
+    
+    <footer>
+        <p>Created by ***** August 2024</p>
+    </footer>
+    <dialog id="form-dialog" close>
         <h3>Fill in the form and press Confirm to add a new book to your library</h3>
         <form id="add-book-form" method="dialog">
-            <label for="title">Book title
+            <label for="title">TITLE
                 <input type="text" name="title" id="title" required>
             </label>
-            <label for="author">author
+            <label for="author">AUTHOR
                 <input type="text" name="author" id="author" required>
             </label>
             <label for="description-label">Book description
                 <textarea name="description" id="description">this is the description</textarea>
             </label>
-            <label for="pages">no. of pages
+            <label for="pages">NO. OF PAGES
                 <input type="text" name="pages" id="pages" required>
             </label>
-            <label for="is-completed">Have you completed the book?
+            <label for="is-completed">BOOK COMPLETED?
                 <input type="checkbox" name="is-completed" id="is-completed">
             </label>
-            <button value="cancel" formmethod="dialog">Cancel</button>
-            <button id="confirm-btn" value="default">Confirm</button>
+            <div class="modal-buttons">
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="confirm-btn" value="default">Confirm</button>
+            </div>
         </form>
     </dialog>
-    <footer>
-        <p>Created by ***** August 2024</p>
-    </footer>
 </body>
 </html>

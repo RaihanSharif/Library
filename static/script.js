@@ -34,6 +34,10 @@ myLibrary.push(lotr);
 myLibrary.push(mockingBird);
 myLibrary.push(shining);
 
+const addBookBtn = document.querySelector("#add-book-btn");
+const dialog = document.querySelector("dialog");
+
+
 function Book(title, author, description, pages, isCompleted) {
     this.title = title;
     this.author = author;
@@ -42,6 +46,9 @@ function Book(title, author, description, pages, isCompleted) {
     this.isCompleted = isCompleted;
 }
 
+addBookBtn.addEventListener("click", (event) => {
+    dialog.showModal();
+})
 
 /*
 how to add a card to the grid:
