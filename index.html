@@ -33,6 +33,28 @@
 
         </div>
     </div>
+    <dialog open>
+        <h3>Fill in the form and press Confirm to add a new book to your library</h3>
+        <form id="add-book-form" method="dialog">
+            <label for="title">Book title
+                <input type="text" name="title" id="title" required>
+            </label>
+            <label for="author">author
+                <input type="text" name="author" id="author" required>
+            </label>
+            <label for="description-label">Book description
+                <textarea name="description" id="description">this is the description</textarea>
+            </label>
+            <label for="pages">no. of pages
+                <input type="text" name="pages" id="pages" required>
+            </label>
+            <label for="is-completed">Have you completed the book?
+                <input type="checkbox" name="is-completed" id="is-completed">
+            </label>
+            <button value="cancel" formmethod="dialog">Cancel</button>
+            <button id="confirm-btn" value="default">Confirm</button>
+        </form>
+    </dialog>
     <footer>
         <p>Created by ***** August 2024</p>
     </footer>

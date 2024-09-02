@@ -36,7 +36,7 @@ ul {
 }
 
 body {
-  background-color: var(--theme-color-2);
+  background-color: var(--theme-color-1);
   font-family: "Roboto", sans-serif;
   word-wrap: break-word;
   min-height: 100vh;
@@ -121,7 +121,7 @@ button img {
 
 }
 .card {
-  background-color:var(--theme-color-1);
+  background-color: white;
   font-family: 'Goudy Bookletter 1911', serif;
   padding: 1rem;
   display: grid;
@@ -174,4 +174,23 @@ footer {
   background-color: var(--theme-color-11);
   color: white;
   padding: 1rem;
+}
+
+dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+label {
+  display: flex;
+  flex-direction: column;
 }
