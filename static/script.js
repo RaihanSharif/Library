@@ -36,6 +36,7 @@ myLibrary.push(shining);
 
 const addBookBtn = document.querySelector("#add-book-btn");
 const dialog = document.querySelector("dialog");
+const cancelBtn = dialog.querySelector("#cancel-btn");
 
 
 function Book(title, author, description, pages, isCompleted) {
@@ -50,6 +51,9 @@ addBookBtn.addEventListener("click", (event) => {
     dialog.showModal();
 })
 
+cancelBtn.addEventListener("close", (e) => {
+    dialog.close();
+})
 /*
 how to add a card to the grid:
 1. take user input on click of add button
