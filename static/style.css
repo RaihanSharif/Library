@@ -25,6 +25,20 @@
 
 }
 
+::backdrop {
+  /* background-image: linear-gradient(
+    45deg,
+    rgba(148, 130, 148, 0.619),
+    rgba(102, 51, 153, 0.659),
+    rgba(30, 143, 255, 0.603),
+    rgba(0, 128, 0, 0.443)
+  ); */
+  filter: blur(1.5rem);
+  backdrop-filter: blur(4px);
+  filter: brightness(70%);
+}
+
+
 *, *::before, *::after {
   box-sizing: border-box;
   padding: 0;
@@ -188,10 +202,30 @@ dialog[open] {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  opacity: 1;
+  border-radius: 10px black solid;
+  
 }
+
+dialog {
+  border-radius: 10px black solid;
+}
+
+label>input {
+  height: 1.8rem;
+  padding: 0 1ch;
+}
+
 
 label {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+}
+
+#is-completed-label {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 }

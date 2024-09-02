@@ -40,19 +40,19 @@
     <dialog id="form-dialog" close>
         <h3>Fill in the form and press Confirm to add a new book to your library</h3>
         <form id="add-book-form" method="dialog">
-            <label for="title">TITLE
+            <label for="title">Title
                 <input type="text" name="title" id="title" required>
             </label>
-            <label for="author">AUTHOR
+            <label for="author">Author
                 <input type="text" name="author" id="author" required>
             </label>
             <label for="description-label">Book description
-                <textarea name="description" id="description">this is the description</textarea>
+                <textarea name="description" id="description" rows="7" placeholder="Describe the book"></textarea>
             </label>
-            <label for="pages">NO. OF PAGES
-                <input type="text" name="pages" id="pages" required>
+            <label for="pages">No. of pages
+                <input type="number" min="1" name="pages" id="pages" required>
             </label>
-            <label for="is-completed">BOOK COMPLETED?
+            <label id="is-completed-label" for="is-completed">Did you complete the book?
                 <input type="checkbox" name="is-completed" id="is-completed">
             </label>
             <div class="modal-buttons">
@@ -63,3 +63,4 @@
     </dialog>
 </body>
 </html>
+
