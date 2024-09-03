@@ -25,18 +25,22 @@ const shining = {
     isCompleted: true,
 }
 
-const totalBooks = 0;
-const completedBooks = 0;
-const unreadBooks = totalBooks - completedBooks;
-
 const myLibrary = [];
 myLibrary.push(lotr);
 myLibrary.push(mockingBird);
 myLibrary.push(shining);
 
+const totalBooks = 0;
+const completedBooks = 0;
+const unreadBooks = totalBooks - completedBooks;
+
 const addBookBtn = document.querySelector("#add-book-btn");
 const dialog = document.querySelector("dialog");
 const cancelBtn = dialog.querySelector("#cancel-btn");
+const confirmBtn = dialog.querySelector("#confirm-btn");
+const formToObject = form => Object.fromEntries(new FormData(form));
+
+let tempBook = new Book('', '', '', 0, false);
 
 
 function Book(title, author, description, pages, isCompleted) {
@@ -55,7 +59,22 @@ addBookBtn.addEventListener("click", (event) => {
 cancelBtn.addEventListener("click", (e) => {
     e.preventDefault();
     dialog.close();
-})
+});
+
+
+
+dialog.addEventListener("close", (e) => {
+    const tempObj = formToObject(dialog.querySelector("#add-book-form"));
+    console.log(tempObj);
+    tempBook["title"] = tempObj["title"];
+    tempBook["author"] = tempObj["author"];
+    tempBook["description"] = tempObj["description"];
+    tempBook["pages"] = tempObj["pages"];
+    tempBook["isCompleted"] = tempObj["isComplete"] === "on" ? true : false;
+    console.log(tempBook);
+});
+
+
 /*
 how to add a card to the grid:
 1. take user input on click of add button
@@ -71,14 +90,6 @@ the array.
 */
 
 // may or may not be needed
-function openModal() {
-
-}
-
-// may or maynot be needed
-function closeModal() {
-    // return data?
-}
 
 // called by the add book button
 function getUserInput() {
@@ -87,14 +98,8 @@ function getUserInput() {
     // close modal
 }
 function addBookToLibrary(book) {
-    // let data = getuserInput()
-    // let newBook = new Book(data);
-    // myLibrary.push(newBook);
-
-    // createCard(book)
-
-    // test with dummy data
-    // modal data gathering will be last step
+    // check if author and book title already exist
+    // if not, add it to the 
 }
 
 
