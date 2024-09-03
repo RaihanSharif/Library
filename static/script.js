@@ -1,34 +1,57 @@
-const lotr = {
-    title: "Lord of the Rings",
-    author: "J.R.R. Tolkien",
-    description: "An epic journey through middle earth as \
+function Book(title, author, description, pages, isCompleted) {
+    this.title = title;
+    this.author = author;
+    this.description = description;
+    this.pages = pages;
+    this.isCompleted = isCompleted;
+}
+
+
+const lotr = new Book(
+    "Lord of the Rings",
+    "J.R.R. Tolkien",
+    "An epic journey through middle earth as \
     Hobbits, Elves, Dwarves, and Men form a fellowship in \
     order to battle the dark lord Sauron.",
-    pages: 600,
-    isCompleted: false,
-}
+    600,
+    false,
+)
 
-const mockingBird = {
-    title: "To Kill a MockingBird",
-    author: "Harper Lee",
-    description: "A harrowing depiction of racism in America \
+
+const mockingBird = new Book(
+    "To Kill a MockingBird",
+    "Harper Lee",
+    "A harrowing depiction of racism in America \
     in the midst of the great depresson",
-    pages: 5000,
-    isCompleted: false,
-}
+    5000,
+    false,
+)
 
-const shining = {
-    title: "The Shining",
-    author: "Stephen King",
-    description: "Man loses mind, tries to kill family",
-    pages: 300,
-    isCompleted: true,
-}
+const shining = new Book(
+    "The Shining",
+    "Stephen King",
+    "Man loses mind, tries to kill family",
+    300,
+    true,
+)
+
+const theDeluge = new Book(
+    "The Deluge",
+    "Stephen Markley",
+    "In the first decades of the 21st century, \
+    the world is convulsing, its governments mired in \
+    gridlock while a patient but unrelenting ecological \
+    crisis looms. America is in upheaval, battered by \
+    violent weather and extreme politics...",
+    896,
+    false,
+)
 
 const myLibrary = [];
 myLibrary.push(lotr);
 myLibrary.push(mockingBird);
 myLibrary.push(shining);
+myLibrary.push(theDeluge);
 
 const totalBooks = 0;
 const completedBooks = 0;
@@ -43,13 +66,7 @@ const formToObject = form => Object.fromEntries(new FormData(form));
 let tempBook = new Book('', '', '', 0, false);
 
 
-function Book(title, author, description, pages, isCompleted) {
-    this.title = title;
-    this.author = author;
-    this.description = description;
-    this.pages = pages;
-    this.isCompleted = isCompleted;
-}
+
 
 addBookBtn.addEventListener("click", (event) => {
     dialog.showModal();
@@ -61,45 +78,37 @@ cancelBtn.addEventListener("click", (e) => {
     dialog.close();
 });
 
-
+// if a book with the same title and author already
+// the array, then return true
+function isBookInLibrary(title, author) {
+    const result = myLibrary.find((book) => 
+        (book.title === title && book.author === author));
+    return (result) ? true : false;
+}
 
 dialog.addEventListener("close", (e) => {
     const tempObj = formToObject(dialog.querySelector("#add-book-form"));
     console.log(tempObj);
-    tempBook["title"] = tempObj["title"];
-    tempBook["author"] = tempObj["author"];
-    tempBook["description"] = tempObj["description"];
-    tempBook["pages"] = tempObj["pages"];
-    tempBook["isCompleted"] = tempObj["isComplete"] === "on" ? true : false;
-    console.log(tempBook);
+    if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
+        alert("this book already exists in the library");
+    } else {
+        tempBook["title"] = tempObj["title"];
+        tempBook["author"] = tempObj["author"];
+        tempBook["description"] = tempObj["description"];
+        tempBook["pages"] = tempObj["pages"];
+        tempBook["isCompleted"] = tempObj["isComplete"] === "on" ? true : false;
+        console.log(tempBook);
+        myLibrary.push(tempBook);
+    }
 });
 
 
-/*
-how to add a card to the grid:
-1. take user input on click of add button
-2. use modal and form, to collect data
-3. store data in the form of a book.
-4. put that book in library array
-5. create card using that book
-6. append that card to the card container as a child
-
-when adding a new card, the delete button needs to
-have a data field which is used to find the book in
-the array.
-*/
-
-// may or may not be needed
-
-// called by the add book button
-function getUserInput() {
-    // open modal
-    // validate modal data
-    // close modal
-}
 function addBookToLibrary(book) {
     // check if author and book title already exist
     // if not, add it to the 
+    for (let book in myLibrary) {
+
+    }
 }
 
 
@@ -156,5 +165,5 @@ function createCard(book) {
 const cardContainer = document.getElementById("card-container");
 cardContainer.appendChild(createCard(lotr));
 cardContainer.appendChild(createCard(mockingBird));
-cardContainer.appendChild(createCard(lotr));
+cardContainer.appendChild(createCard(theDeluge));
 cardContainer.appendChild(createCard(shining));
