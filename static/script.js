@@ -96,7 +96,7 @@ dialog.addEventListener("close", (e) => {
     if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
         alert("this book already exists in the library");
     } else {
-        let tempBook = new Book('', '', '', 0, false);
+        const tempBook = new Book('', '', '', 0, false);
         tempBook["title"] = tempObj["title"];
         tempBook["author"] = tempObj["author"];
         tempBook["description"] = tempObj["description"];
