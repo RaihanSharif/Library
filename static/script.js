@@ -88,7 +88,13 @@ function isBookInLibrary(title, author) {
     return (result) ? true : false;
 }
 
-
+function addBookToLibrary(book) {
+    myLibrary.push(book);
+    cardContainer.appendChild(createCard(book));
+    totalBooks += 1;
+    // TODO: set the values of the completed and delete buttons
+    // on the cards so they connect to the array objects
+}
 
 dialog.addEventListener("close", (e) => {
     const tempObj = formToObject(dialog.querySelector("#add-book-form"));
@@ -96,30 +102,14 @@ dialog.addEventListener("close", (e) => {
     if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
         alert("this book already exists in the library");
     } else {
-        const tempBook = new Book('', '', '', 0, false);
-        tempBook["title"] = tempObj["title"];
-        tempBook["author"] = tempObj["author"];
-        tempBook["description"] = tempObj["description"];
-        tempBook["pages"] = tempObj["pages"];
-        tempBook["isCompleted"] = tempObj["isComplete"] === "on" ? true : false;
-        console.log(tempBook);
-        myLibrary.push(tempBook);
-        cardContainer.appendChild(createCard(tempBook));
-        totalBooks += 1;
+        const tempBook = new Book(tempObj["title"], tempObj["author"], 
+            tempObj["description"], tempObj["pages"], false);
+        tempBook["isCompleted"] = 
+            tempObj["isComplete"] === "on" ? true : false;
+
+        addBookToLibrary(tempBook);
     }
 });
-
-
-function addBookToLibrary(book) {
-    // check if author and book title already exist
-    // if not, add it to the 
-    for (let book in myLibrary) {
-
-    }
-}
-
-
-
 
 function createCard(book) {
     const card = document.createElement("div");
