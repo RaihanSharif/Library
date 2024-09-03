@@ -51,7 +51,9 @@ addBookBtn.addEventListener("click", (event) => {
     dialog.showModal();
 })
 
-cancelBtn.addEventListener("close", (e) => {
+// can close form without filling in required fields of form
+cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     dialog.close();
 })
 /*
