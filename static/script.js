@@ -63,7 +63,7 @@ const cancelBtn = dialog.querySelector("#cancel-btn");
 const confirmBtn = dialog.querySelector("#confirm-btn");
 const formToObject = form => Object.fromEntries(new FormData(form));
 
-let tempBook = new Book('', '', '', 0, false);
+
 
 
 
@@ -80,11 +80,15 @@ cancelBtn.addEventListener("click", (e) => {
 
 // if a book with the same title and author already
 // the array, then return true
+// TODO: set all the title and author fields to lower case 
+// before comparing
 function isBookInLibrary(title, author) {
     const result = myLibrary.find((book) => 
         (book.title === title && book.author === author));
     return (result) ? true : false;
 }
+
+
 
 dialog.addEventListener("close", (e) => {
     const tempObj = formToObject(dialog.querySelector("#add-book-form"));
@@ -92,6 +96,7 @@ dialog.addEventListener("close", (e) => {
     if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
         alert("this book already exists in the library");
     } else {
+        let tempBook = new Book('', '', '', 0, false);
         tempBook["title"] = tempObj["title"];
         tempBook["author"] = tempObj["author"];
         tempBook["description"] = tempObj["description"];
@@ -99,6 +104,8 @@ dialog.addEventListener("close", (e) => {
         tempBook["isCompleted"] = tempObj["isComplete"] === "on" ? true : false;
         console.log(tempBook);
         myLibrary.push(tempBook);
+        cardContainer.appendChild(createCard(tempBook));
+        totalBooks += 1;
     }
 });
 
