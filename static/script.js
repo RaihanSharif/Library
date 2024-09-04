@@ -64,8 +64,10 @@ const confirmBtn = dialog.querySelector("#confirm-btn");
 const formToObject = form => Object.fromEntries(new FormData(form));
 const cardContainer = document.getElementById("card-container");
 const closeDialogBtn = dialog.querySelector("#close-dialog");
+const form = dialog.querySelector("#add-book-form");
 
 addBookBtn.addEventListener("click", (event) => {
+    form.reset();    
     dialog.showModal();
 })
 
