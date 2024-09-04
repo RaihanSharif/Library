@@ -85,6 +85,14 @@ function isBookInLibrary(title, author) {
     return (result) ? true : false;
 }
 
+function removeBook(index, cardToRemove) {
+    myLibrary.splice(index, 1);
+    cardToRemove.remove();
+    console.log(myLibrary);
+    console.log(cardContainer);
+
+}
+
 function createCard(book) {
     const card = document.createElement("div");
     card.className = "card";
@@ -131,6 +139,18 @@ function createCard(book) {
     card.appendChild(description);
     card.appendChild(pages);
     card.appendChild(buttons);
+
+    card.addEventListener("click", (event) => {
+        target = event.target;
+
+
+        if (target.className === 'delete-btn') {
+            // removeBook(target.dataset.libraryIndex);
+            const cardToRem = target.parentNode.parentNode;
+            removeBook(target.dataset.libraryIndex, cardToRem);
+        }
+
+    }) 
 
     return card;
 }
