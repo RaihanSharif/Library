@@ -48,10 +48,10 @@ const theDeluge = new Book(
 )
 
 const myLibrary = [];
-myLibrary.push(lotr);
-myLibrary.push(mockingBird);
-myLibrary.push(shining);
-myLibrary.push(theDeluge);
+// myLibrary.push(lotr);
+// myLibrary.push(mockingBird);
+// myLibrary.push(shining);
+// myLibrary.push(theDeluge);
 
 let totalBooks = 0;
 let completedBooks = 0;
@@ -87,7 +87,7 @@ function isBookInLibrary(title, author) {
 function createCard(book) {
     const card = document.createElement("div");
     card.className = "card";
-    card.dataset.libraryIndex = myLibrary.length-1;
+    card.dataset.libraryIndex = myLibrary.length-1; // this doesn't work
 
     const title = document.createElement("h2");
     title.className = "title";
@@ -141,7 +141,7 @@ function addBookToLibrary(book) {
     
 }
 
-//works
+// definitely works now
 function refreshCards() {
 
     // reset the nodelist of the card container
@@ -150,7 +150,7 @@ function refreshCards() {
     }
 
     myLibrary.forEach((book) => {
-        addBookToLibrary(book);
+        cardContainer.appendChild(createCard(book));
     });
 }
 
@@ -169,10 +169,7 @@ dialog.addEventListener("close", (e) => {
     }
 });
 
-
-
-
-cardContainer.appendChild(createCard(lotr));
-cardContainer.appendChild(createCard(mockingBird));
-cardContainer.appendChild(createCard(theDeluge));
-cardContainer.appendChild(createCard(shining));
+addBookToLibrary(lotr);
+addBookToLibrary(mockingBird);
+addBookToLibrary(shining);
+addBookToLibrary(theDeluge);
