@@ -87,9 +87,11 @@ function isBookInLibrary(title, author) {
 
 function removeBook(index, cardToRemove) {
     myLibrary.splice(index, 1);
+    console.log(`splicing at index ${index}`);
     cardToRemove.remove();
     console.log(myLibrary);
     console.log(cardContainer);
+    refreshCards();
 
 }
 
