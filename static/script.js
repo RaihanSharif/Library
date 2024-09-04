@@ -1,94 +1,204 @@
-const lotr = {
-    title: "Lord of the Rings",
-    author: "J.R.R. Tolkien",
-    pages: 600,
-    isRead: false,
+function Book(title, author, description, pages, isCompleted) {
+    this.title = title;
+    this.author = author;
+    this.description = description;
+    this.pages = pages;
+    this.isCompleted = isCompleted;
 }
 
-const mokingBird = {
-    title: "To Kill a MockingBird",
-    author: "Harper Lee",
-    pages: 5000,
-    isRead: false,
-}
 
-const shinning = {
-    title: "The Shining",
-    author: "Stephen King",
-    pages: 300,
-    isRead: true,
-}
+const lotr = new Book(
+    "Lord of the Rings",
+    "J.R.R. Tolkien",
+    "An epic journey through middle earth as \
+    Hobbits, Elves, Dwarves, and Men form a fellowship in \
+    order to battle the dark lord Sauron.",
+    600,
+    false,
+)
+
+
+const mockingBird = new Book(
+    "To Kill a MockingBird",
+    "Harper Lee",
+    "A harrowing depiction of racism in America \
+    in the midst of the great depresson",
+    5000,
+    false,
+)
+
+const shining = new Book(
+    "The Shining",
+    "Stephen King",
+    "Man loses mind, tries to kill family",
+    300,
+    true,
+)
+
+const theDeluge = new Book(
+    "The Deluge",
+    "Stephen Markley",
+    "In the first decades of the 21st century, \
+    the world is convulsing, its governments mired in \
+    gridlock while a patient but unrelenting ecological \
+    crisis looms. America is in upheaval, battered by \
+    violent weather and extreme politics...",
+    896,
+    false,
+)
 
 const myLibrary = [];
-myLibrary.push(lotr);
-myLibrary.push(mokingBird);
-myLibrary.push(shinning);
+// myLibrary.push(lotr);
+// myLibrary.push(mockingBird);
+// myLibrary.push(shining);
+// myLibrary.push(theDeluge);
 
-function Book() {
-  // the constructor...
+let totalBooks = 0;
+let completedBooks = 0;
+let unreadBooks = totalBooks - completedBooks;
+
+const addBookBtn = document.querySelector("#add-book-btn");
+const dialog = document.querySelector("dialog");
+const cancelBtn = dialog.querySelector("#cancel-btn");
+const confirmBtn = dialog.querySelector("#confirm-btn");
+const formToObject = form => Object.fromEntries(new FormData(form));
+const cardContainer = document.getElementById("card-container");
+const closeDialogBtn = dialog.querySelector("#close-dialog");
+const form = dialog.querySelector("#add-book-form");
+
+addBookBtn.addEventListener("click", (event) => {
+    form.reset();    
+    dialog.showModal();
+})
+
+// can close form without filling in required fields of form
+cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    dialog.close();
+});
+
+// if a book with the same title and author already
+// the array, then return true
+// TODO: set all the title and author fields to lower case 
+// before comparing
+function isBookInLibrary(title, author) {
+    const result = myLibrary.find((book) => 
+        (book.title === title && book.author === author));
+    return (result) ? true : false;
 }
 
-// create new book with user input
-function addBookToLibrary() {
-    let newBook = new Book();
-    myLibrary.push(newBook);
-}
-
-
-
-
-const tableBody = document.querySelector(".books-table-body");
-function updateTable() {
-    while (tableBody.hasChildNodes()) {
-        tableBody.removeChild(tableBody.lastChild);
-    }
-    let tableRow = document.createElement("tr");
-
-    for (let i = 0; i < myLibrary.length; i++) {
-        tableRow = document.createElement("tr");
-        const book = myLibrary[i];
-
-        const title = document.createElement("td");
-        title.textContent = book["title"];
-        
-        const author = document.createElement("td");
-        author.textContent = book["author"];
-        
-        const pages = document.createElement("td");
-        pages.textContent = book["pages"];
-        
-        const read = document.createElement("td");
-        read.textContent = book["isRead"];
-
-        const toggle_read = document.createElement("button");
-        toggle_read.textContent = "toggle";
-        read.appendChild(toggle_read);
-
-        const delBook = document.createElement("button");
-        delBook.textContent = "delete";
-        delBook.setAttribute('data', `del: ${i}`);
-        delBook.className = "delete-book";
-        delBook.onclick = () => {
-            delFromLibrary(delBook.dataset.del);
-        }
-        
-        tableRow.appendChild(title);
-        tableRow.appendChild(author);
-        tableRow.appendChild(pages);
-        tableRow.appendChild(read);
-        tableRow.appendChild(delBook);
-
-
-        tableBody.appendChild(tableRow);
-    }
-}
-
-updateTable()
-
-function delFromLibrary(index) {
-    console.log(`before`, myLibrary);
+function removeBook(index, cardToRemove) {
     myLibrary.splice(index, 1);
-    updateTable();
-    console.log(`after`, myLibrary);
+    cardToRemove.remove();
+    refreshCards();
+
 }
 
+function createCard(book) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.libraryIndex = myLibrary.length-1; // this doesn't work
+
+    const title = document.createElement("h2");
+    title.className = "title";
+    title.textContent = book["title"];
+
+    const author = document.createElement("p");
+    author.className = "author";
+    author.textContent = book["author"];
+
+    const description = document.createElement("p");
+    description.className = "description";
+    description.textContent = book["description"];
+
+    const pages = document.createElement("span");
+    pages.className = "pages";
+    pages.textContent = `${book["pages"]} pages`;
+
+    
+    const isCompletedBtn = document.createElement("button");
+    isCompletedBtn.classname = "is-complete-btn";
+    if (book["isCompleted"]) {
+        isCompletedBtn.textContent = "Completed";
+    } else {
+        isCompletedBtn.textContent = "Not completed";
+    }
+    
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-btn";
+    deleteBtn.textContent = "delete";
+    deleteBtn.dataset.libraryIndex = myLibrary.length-1;
+    
+    const buttons = document.createElement("div");
+    buttons.className = 'card-buttons';
+
+    buttons.appendChild(isCompletedBtn);
+    buttons.appendChild(deleteBtn);
+
+    card.appendChild(title);
+    card.appendChild(author);
+    card.appendChild(description);
+    card.appendChild(pages);
+    card.appendChild(buttons);
+
+    card.addEventListener("click", (event) => {
+        target = event.target;
+
+
+        if (target.className === 'delete-btn') {
+            // removeBook(target.dataset.libraryIndex);
+            const cardToRem = target.parentNode.parentNode;
+            removeBook(target.dataset.libraryIndex, cardToRem);
+        }
+
+    }) 
+
+    return card;
+}
+
+function addBookToLibrary(book) {
+    myLibrary.push(book);
+    cardContainer.appendChild(createCard(book));
+    totalBooks += 1;
+    
+}
+
+// definitely works now
+function refreshCards() {
+
+    // reset the nodelist of the card container
+    while (cardContainer.firstChild) {
+        cardContainer.removeChild(cardContainer.lastChild);
+    }
+
+    myLibrary.forEach((book) => {
+        cardContainer.appendChild(createCard(book));
+    });
+}
+
+
+confirmBtn.addEventListener("click", (e) => {
+    const tempObj = formToObject(dialog.querySelector("#add-book-form"));
+    console.log(`temp object`, tempObj);
+    if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
+        alert("this book already exists in the library");
+    } else {
+        console.log(`temp obj isCompleted`, tempObj["is-completed"]);
+        const tempBook = new Book(tempObj["title"], tempObj["author"], 
+            tempObj["description"], tempObj["pages"], false);
+        
+        tempBook["isCompleted"] = tempObj["is-completed"] ? true : false;
+        console.log(`checking if book iscompleted working`, tempBook.isCompleted);
+        addBookToLibrary(tempBook);
+    }
+    dialog.close();
+});
+
+closeDialogBtn.addEventListener("click", () => {
+    dialog.close();
+})
+
+addBookToLibrary(lotr);
+addBookToLibrary(mockingBird);
+addBookToLibrary(shining);
+addBookToLibrary(theDeluge);

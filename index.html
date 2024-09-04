@@ -8,22 +8,90 @@
     <title>Library Project</title>
 </head>
 <body>
-    <h1>The TOP library</h1>
-    <table id="books-table">
-        <caption>
-            Books in the library
-        </caption>
-        <thead>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Pages</th>
-            <th>Already Read</th>
-          </thead>
-          <tbody class="books-table-body">
-            <tr></tr>
-            <tr></tr>
-          </tbody>
-        </table>
-    </table>
+    <header>
+        <div id="logo">Library</div>
+        <div><button>Log in</button></div>
+    </header>
+    <div class="container">
+        <div class="nav">
+            <ul>
+                <li id="total">
+                    Total books: 
+                </li>
+                <li id="read">
+                    Read:
+                </li>
+                <li id="unread">
+                    unread:
+                </li>
+            </ul>
+            <button id="add-book-btn">
+                <img src="assets/plus.svg" alt="add new book">
+            </button>
+        </div>
+        <div id="card-container">
+
+        </div>
+    </div>
+    
+    <footer>
+        <p>Created by ***** August 2024</p>
+    </footer>
+    <dialog id="form-dialog" close>
+        <button id="close-dialog" autofocus>
+            <img src="assets/close.svg" alt="close dialog">
+        </button>
+        <h3>Fill in the form and press Confirm to add a
+            new book to your library
+        </h3>
+
+        <form id="add-book-form" method="dialog">
+            <div id="title-author">
+                <label for="title">Title
+                    <input 
+                        type="text" 
+                        name="title" 
+                        id="title" required>
+                </label>
+                <label for="author">Author
+                    <input 
+                        type="text" name="author" 
+                        id="author" required>
+                </label>
+            </div>
+            <label for="description">Book description
+                <textarea 
+                    name="description" 
+                    id="description" rows="7" 
+                    placeholder="Describe the book"></textarea>
+            </label>
+            <div id="pages-and-checkbox">
+                <label for="pages">No. of pages
+                    <input 
+                        type="number" 
+                        min="1" name="pages" 
+                        id="pages" required>
+                </label>
+                <label id="is-completed-label" 
+                for="is-completed">I have completed the book
+                    <input 
+                        type="checkbox" 
+                        name="is-completed" id="is-completed">
+                </label>
+            </div>
+            <div class="modal-buttons">
+                <button 
+                    id="cancel-btn" 
+                    value="cancel" 
+                    formmethod="dialog" >Cancel
+                </button>
+                <button 
+                    id="confirm-btn" 
+                    value="default">Confirm
+                </button>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>
+
