@@ -63,6 +63,7 @@ const cancelBtn = dialog.querySelector("#cancel-btn");
 const confirmBtn = dialog.querySelector("#confirm-btn");
 const formToObject = form => Object.fromEntries(new FormData(form));
 const cardContainer = document.getElementById("card-container");
+const closeDialogBtn = dialog.querySelector("#close-dialog");
 
 addBookBtn.addEventListener("click", (event) => {
     dialog.showModal();
@@ -154,7 +155,8 @@ function refreshCards() {
     });
 }
 
-dialog.addEventListener("close", (e) => {
+
+confirmBtn.addEventListener("click", (e) => {
     const tempObj = formToObject(dialog.querySelector("#add-book-form"));
     console.log(tempObj);
     if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
@@ -167,7 +169,12 @@ dialog.addEventListener("close", (e) => {
 
         addBookToLibrary(tempBook);
     }
+    dialog.close();
 });
+
+closeDialogBtn.addEventListener("click", () => {
+    dialog.close();
+})
 
 addBookToLibrary(lotr);
 addBookToLibrary(mockingBird);

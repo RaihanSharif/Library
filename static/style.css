@@ -194,7 +194,7 @@ form {
 
 dialog[open] {
   margin: auto;
-  padding: 3.5rem 1.5rem;
+  padding: 1rem 1rem 3.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -253,4 +253,16 @@ label {
 
 #cancel-btn  {
   background-color: rgb(159, 28, 28);
+}
+
+
+#close-dialog {
+  width: 2rem;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  place-content: center;
+  align-self: end;
+  display: flex;
+  background-color: var(--theme-color-5);
 }
