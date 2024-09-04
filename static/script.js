@@ -125,7 +125,6 @@ function createCard(book, index) {
     }
 
     isCompletedBtn.addEventListener("click", () => {
-        const book = myLibrary[isCompletedBtn.dataset.libraryIndex];
         toggleIsCompleted(book, isCompletedBtn);
     })
     
