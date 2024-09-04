@@ -6,7 +6,6 @@ function Book(title, author, description, pages, isCompleted) {
     this.isCompleted = isCompleted;
 }
 
-
 const lotr = new Book(
     "Lord of the Rings",
     "J.R.R. Tolkien",
@@ -16,7 +15,6 @@ const lotr = new Book(
     600,
     false,
 )
-
 
 const mockingBird = new Book(
     "To Kill a MockingBird",
@@ -48,10 +46,6 @@ const theDeluge = new Book(
 )
 
 const myLibrary = [];
-// myLibrary.push(lotr);
-// myLibrary.push(mockingBird);
-// myLibrary.push(shining);
-// myLibrary.push(theDeluge);
 
 let totalBooks = 0;
 let completedBooks = 0;
@@ -66,7 +60,7 @@ const cardContainer = document.getElementById("card-container");
 const closeDialogBtn = dialog.querySelector("#close-dialog");
 const form = dialog.querySelector("#add-book-form");
 
-addBookBtn.addEventListener("click", (event) => {
+addBookBtn.addEventListener("click", () => {
     form.reset();    
     dialog.showModal();
 })
@@ -87,17 +81,21 @@ function isBookInLibrary(title, author) {
     return (result) ? true : false;
 }
 
-function removeBook(index, cardToRemove) {
-    myLibrary.splice(index, 1);
-    cardToRemove.remove();
-    refreshCards();
-
+function toggleIsCompleted(book, button) {
+    button.classList.toggle("completed");
+    book["isCompleted"] = !book["isCompleted"];
+    console.log(book["isCompleted"]);
+    if (button.classList.contains("completed")) {
+        button.textContent = "Completed";
+    } else {
+        button.textContent = "Not completed";
+    }
 }
 
-function createCard(book) {
+function createCard(book, index) {
     const card = document.createElement("div");
     card.className = "card";
-    card.dataset.libraryIndex = myLibrary.length-1; // this doesn't work
+    card.dataset.libraryIndex = index; // this doesn't work
 
     const title = document.createElement("h2");
     title.className = "title";
@@ -117,17 +115,24 @@ function createCard(book) {
 
     
     const isCompletedBtn = document.createElement("button");
-    isCompletedBtn.classname = "is-complete-btn";
-    if (book["isCompleted"]) {
+    isCompletedBtn.classList = "is-complete-btn";
+    isCompletedBtn.dataset.libraryIndex = index;
+    if (book.isCompleted) {
+        isCompletedBtn.classList.add("completed");
         isCompletedBtn.textContent = "Completed";
     } else {
         isCompletedBtn.textContent = "Not completed";
     }
+
+    isCompletedBtn.addEventListener("click", () => {
+        const book = myLibrary[isCompletedBtn.dataset.libraryIndex];
+        toggleIsCompleted(book, isCompletedBtn);
+    })
     
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
     deleteBtn.textContent = "delete";
-    deleteBtn.dataset.libraryIndex = myLibrary.length-1;
+    deleteBtn.dataset.libraryIndex = index;
     
     const buttons = document.createElement("div");
     buttons.className = 'card-buttons';
@@ -143,53 +148,41 @@ function createCard(book) {
 
     card.addEventListener("click", (event) => {
         target = event.target;
-
-
         if (target.className === 'delete-btn') {
-            // removeBook(target.dataset.libraryIndex);
-            const cardToRem = target.parentNode.parentNode;
-            removeBook(target.dataset.libraryIndex, cardToRem);
+            removeBook(target.dataset.libraryIndex);
         }
-
-    }) 
-
+    }); 
     return card;
 }
 
-function addBookToLibrary(book) {
+function addBookToLibrary(book, index) {
     myLibrary.push(book);
-    cardContainer.appendChild(createCard(book));
-    totalBooks += 1;
-    
+    cardContainer.appendChild(createCard(book, index));
+    console.log("lirbary length is: ", myLibrary,length);
 }
 
-// definitely works now
-function refreshCards() {
-
-    // reset the nodelist of the card container
+function removeBook(index) {
+    myLibrary.splice(index, 1);
     while (cardContainer.firstChild) {
         cardContainer.removeChild(cardContainer.lastChild);
     }
-
-    myLibrary.forEach((book) => {
-        cardContainer.appendChild(createCard(book));
-    });
+    for (let i = 0; i < myLibrary.length; i++) {
+        console.log(myLibrary[i]);
+        cardContainer.appendChild(createCard(myLibrary[i], i));
+    }
 }
-
 
 confirmBtn.addEventListener("click", (e) => {
     const tempObj = formToObject(dialog.querySelector("#add-book-form"));
-    console.log(`temp object`, tempObj);
     if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
         alert("this book already exists in the library");
     } else {
-        console.log(`temp obj isCompleted`, tempObj["is-completed"]);
         const tempBook = new Book(tempObj["title"], tempObj["author"], 
             tempObj["description"], tempObj["pages"], false);
         
         tempBook["isCompleted"] = tempObj["is-completed"] ? true : false;
-        console.log(`checking if book iscompleted working`, tempBook.isCompleted);
-        addBookToLibrary(tempBook);
+        console.log("lirbary length one  is: ", myLibrary,length);
+        addBookToLibrary(tempBook, myLibrary.length);
     }
     dialog.close();
 });
@@ -198,7 +191,7 @@ closeDialogBtn.addEventListener("click", () => {
     dialog.close();
 })
 
-addBookToLibrary(lotr);
-addBookToLibrary(mockingBird);
-addBookToLibrary(shining);
-addBookToLibrary(theDeluge);
+addBookToLibrary(lotr, myLibrary.length);
+addBookToLibrary(mockingBird, myLibrary.length);
+addBookToLibrary(shining, myLibrary.length);
+addBookToLibrary(theDeluge, myLibrary.length);

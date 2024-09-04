@@ -266,3 +266,12 @@ label {
   display: flex;
   background-color: var(--theme-color-5);
 }
+
+.is-complete-btn {
+  background-color: red;
+}
+
+.completed {
+  background-color: darkseagreen;
+  content: "Completed";
+}
