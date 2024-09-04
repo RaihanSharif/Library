@@ -53,20 +53,16 @@ myLibrary.push(mockingBird);
 myLibrary.push(shining);
 myLibrary.push(theDeluge);
 
-const totalBooks = 0;
-const completedBooks = 0;
-const unreadBooks = totalBooks - completedBooks;
+let totalBooks = 0;
+let completedBooks = 0;
+let unreadBooks = totalBooks - completedBooks;
 
 const addBookBtn = document.querySelector("#add-book-btn");
 const dialog = document.querySelector("dialog");
 const cancelBtn = dialog.querySelector("#cancel-btn");
 const confirmBtn = dialog.querySelector("#confirm-btn");
 const formToObject = form => Object.fromEntries(new FormData(form));
-
-
-
-
-
+const cardContainer = document.getElementById("card-container");
 
 addBookBtn.addEventListener("click", (event) => {
     dialog.showModal();
@@ -88,32 +84,10 @@ function isBookInLibrary(title, author) {
     return (result) ? true : false;
 }
 
-function addBookToLibrary(book) {
-    myLibrary.push(book);
-    cardContainer.appendChild(createCard(book));
-    totalBooks += 1;
-    // TODO: set the values of the completed and delete buttons
-    // on the cards so they connect to the array objects
-}
-
-dialog.addEventListener("close", (e) => {
-    const tempObj = formToObject(dialog.querySelector("#add-book-form"));
-    console.log(tempObj);
-    if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
-        alert("this book already exists in the library");
-    } else {
-        const tempBook = new Book(tempObj["title"], tempObj["author"], 
-            tempObj["description"], tempObj["pages"], false);
-        tempBook["isCompleted"] = 
-            tempObj["isComplete"] === "on" ? true : false;
-
-        addBookToLibrary(tempBook);
-    }
-});
-
 function createCard(book) {
     const card = document.createElement("div");
     card.className = "card";
+    card.dataset.libraryIndex = myLibrary.length-1;
 
     const title = document.createElement("h2");
     title.className = "title";
@@ -143,6 +117,7 @@ function createCard(book) {
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
     deleteBtn.textContent = "delete";
+    deleteBtn.dataset.libraryIndex = myLibrary.length-1;
     
     const buttons = document.createElement("div");
     buttons.className = 'card-buttons';
@@ -159,7 +134,44 @@ function createCard(book) {
     return card;
 }
 
-const cardContainer = document.getElementById("card-container");
+function addBookToLibrary(book) {
+    myLibrary.push(book);
+    cardContainer.appendChild(createCard(book));
+    totalBooks += 1;
+    
+}
+
+//works
+function refreshCards() {
+
+    // reset the nodelist of the card container
+    while (cardContainer.firstChild) {
+        cardContainer.removeChild(cardContainer.lastChild);
+    }
+
+    myLibrary.forEach((book) => {
+        addBookToLibrary(book);
+    });
+}
+
+dialog.addEventListener("close", (e) => {
+    const tempObj = formToObject(dialog.querySelector("#add-book-form"));
+    console.log(tempObj);
+    if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
+        alert("this book already exists in the library");
+    } else {
+        const tempBook = new Book(tempObj["title"], tempObj["author"], 
+            tempObj["description"], tempObj["pages"], false);
+        tempBook["isCompleted"] = 
+            tempObj["isComplete"] === "on" ? true : false;
+
+        addBookToLibrary(tempBook);
+    }
+});
+
+
+
+
 cardContainer.appendChild(createCard(lotr));
 cardContainer.appendChild(createCard(mockingBird));
 cardContainer.appendChild(createCard(theDeluge));
