@@ -87,10 +87,7 @@ function isBookInLibrary(title, author) {
 
 function removeBook(index, cardToRemove) {
     myLibrary.splice(index, 1);
-    console.log(`splicing at index ${index}`);
     cardToRemove.remove();
-    console.log(myLibrary);
-    console.log(cardContainer);
     refreshCards();
 
 }
@@ -180,15 +177,16 @@ function refreshCards() {
 
 confirmBtn.addEventListener("click", (e) => {
     const tempObj = formToObject(dialog.querySelector("#add-book-form"));
-    console.log(tempObj);
+    console.log(`temp object`, tempObj);
     if (isBookInLibrary(tempObj["title"], tempObj["author"])) {
         alert("this book already exists in the library");
     } else {
+        console.log(`temp obj isCompleted`, tempObj["is-completed"]);
         const tempBook = new Book(tempObj["title"], tempObj["author"], 
             tempObj["description"], tempObj["pages"], false);
-        tempBook["isCompleted"] = 
-            tempObj["isComplete"] === "on" ? true : false;
-
+        
+        tempBook["isCompleted"] = tempObj["is-completed"] ? true : false;
+        console.log(`checking if book iscompleted working`, tempBook.isCompleted);
         addBookToLibrary(tempBook);
     }
     dialog.close();
