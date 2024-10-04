@@ -1,9 +1,11 @@
-function Book(title, author, description, pages, isCompleted) {
-    this.title = title;
-    this.author = author;
-    this.description = description;
-    this.pages = pages;
-    this.isCompleted = isCompleted;
+class Book {
+    constructor (title, author, description, pages, isCompleted) {
+        this.title = title;
+        this.author = author;
+        this.description = description;
+        this.pages = pages;
+        this.isCompleted = isCompleted;
+    }
 }
 
 const lotr = new Book(
